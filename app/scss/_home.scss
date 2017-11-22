@@ -1,0 +1,175 @@
+body {
+	color: $font-color;
+	font-family: $font-family;
+	margin: 0;
+	width: 100%;
+}
+p {
+	font-size: 0.9em;
+}
+section {
+	padding: 5% 0;
+	width: 100%;
+	&:nth-child(2n+1) {
+	  background-color: $primary-bg-clr;
+	  box-shadow: inset 0px 80px 80px -40px $secondary-bg-clr, inset 0px -80px 80px -40px $secondary-bg-clr;
+	}
+	&.header {
+	  box-shadow: inset 0px -80px 80px -40px $secondary-bg-clr;
+	  padding: 0;
+	}
+}
+
+.col-div {
+	padding: 0 2%;
+	width: 25%;
+}
+.container {
+	margin: 0 10%;
+	width: 80%;
+}
+
+.green-dot {
+    background-color: $indicator-bg-clr;
+    border: 4px solid $indicator-border-clr;
+    border-radius: 50%;
+    content: '';
+    display: inline-block;
+    height: 8px;
+    margin: 0 5px;
+    width: 8px;
+}
+
+.row {
+	display: flex;
+	width: 100%;
+}
+.sec-title {
+	font-size: 2.0em;
+	font-weight: 400;
+	margin: 1% 0;
+}
+
+.about, .contact {
+	button {
+		background-color: $secondary-bg-clr;
+    	border: 1px solid $font-color;
+	}
+}
+.acheivements {
+	text-align: center;
+}
+.header-body {
+	padding: 15% 0;
+	h1 {
+		font-size: $font-size;
+		font-weight: 400;
+		margin: 1% 0;
+	}
+	h3 {
+		font-size: 1.5em;
+		font-weight: 300;
+		margin: 1% 0;
+	}
+	h4 {
+		font-size: 1.0em;
+		font-weight: 200;
+		margin: 1% 0;
+	}
+	.fa {
+		color: $indicator-bg-clr;
+	}
+}
+
+.services {
+	text-align: center;
+	h3 {
+		font-size: 1.3em;
+		font-weight: 200;
+		margin: 1% 0;
+	}
+	.row {
+		padding: 5% 0;
+	}
+	@media screen and (max-width: 768px) {
+		.row {
+			padding: 5% 0;
+			display: inline-block;
+			position: relative;
+			.col-div {
+			    width: 50%;
+			    float: left;
+			    padding: 0;
+			}
+		}
+	}
+}
+.skills {
+	.row {
+		text-align: center;
+	}
+	.progress-bar {
+		background-color: #b7b7b7;
+		display: block;
+		height: 3px;
+		margin: 0 auto;
+		width: 50%;
+		.progress-value-bar {
+			background-color: $indicator-bg-clr;
+			display: block;
+			height: 3px;
+			width: 50%;
+		}
+	}
+}
+
+.contact {
+	text-align: center;
+}
+
+.contact-box {
+	text-align: center;	
+	form {
+		padding: 5% 0;
+	}
+	h4 {
+	    color: #3e3e3e;
+	    font-size: 1em;
+	    font-weight: 200;
+	    margin: 0 0 30px;
+	}
+	.contact-form {
+		border: 1px solid grey;
+		width: 60%;
+		margin: 0 15%;
+		padding: 0 5%;
+		position: relative;
+	}
+	.contact-form-row {
+		display: flex; 
+		padding-bottom: 5%;
+		position: relative; 
+		width: 100%;
+		.contact-field {
+			width: 50%;
+			input {
+				width: 90%;
+				&.pull-left {
+					float: left;
+				}
+			}
+		}
+	}
+	.contact-field {
+		display: inline-block; 
+		padding-bottom: 5%;
+		width: 100%;
+		input, textarea {
+			border: none;
+			border-bottom: 1px solid grey;
+			float: right;
+			padding: 5px 0;
+			width: 100%;
+		}
+	}
+}
