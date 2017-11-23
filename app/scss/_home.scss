@@ -15,8 +15,11 @@ section {
 	  box-shadow: inset 0px 80px 80px -40px $secondary-bg-clr, inset 0px -80px 80px -40px $secondary-bg-clr;
 	}
 	&.header {
-	  box-shadow: inset 0px -80px 80px -40px $secondary-bg-clr;
-	  padding: 0;
+	  	box-shadow: inset 0px -80px 80px -40px $secondary-bg-clr;
+	  	background-image: url(../images/banner.png);
+		background-size: cover;
+		background-position: right;
+	  	padding: 0;
 	}
 }
 
@@ -60,7 +63,7 @@ section {
 	text-align: center;
 }
 .header-body {
-	padding: 15% 0;
+	padding: 15% 0;	
 	h1 {
 		font-size: $font-size;
 		font-weight: 400;
