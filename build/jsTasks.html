@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>My Profile</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">	
+</head>
+<body>
+
+<div>
+	<p> Still how many days to go for christmas ?</p>
+	<button id="christmasDays">Click Here</button>	
+</div>
+<hr>
+<br>
+
+<div>
+	<p> String with "Java" in the starting.</p>
+	String: <input type="text" name="stringCheck" id="stringCheck">
+	<button id="stringMatch">Find Match</button>
+	
+</div>
+<hr>
+<br>
+
+<div>
+	<p> String to be ordered in alphabetic order.</p>
+	String To Format: <input type="text" name="stringToFormat" id="stringToFormat">
+	<button id="stringFormat">Ascending Order</button>
+	
+</div>
+<hr>
+<br>
+
+<div>
+	<p> To check the occurrence of the character.</p>
+	String: <input type="text" name="stringOccurence" id="stringOccurence">
+	Character to Find: <input type="text" name="stringToCheck" id="stringToCheck">
+	<button id="occurenceCheck">String Occurence Check</button>
+	
+</div>
+<hr>
+<br>
+
+<div>
+	<p> To create a array dynamically with the given numbers and size.</p>
+	Starting Number: <input type="text" name="startNumber" id="startNumber">
+	Array size: <input type="text" name="arrLength" id="arrLength">
+	<button id="createArray">Create Array</button>
+	
+</div>
+<hr>
+<br>
+
+	<script type="text/javascript">
+		// How many days to go for christmas		
+		document.querySelector("#christmasDays").addEventListener("click", function( event ) {				
+			var dateObj 			= new Date();
+			var christmasDate 		= dateObj.getFullYear()+'-12-25';
+			var christmasDateObj 	= new Date(christmasDate);
+			
+			todayDateTime 	= dateObj.getTime();
+			xmasDateTime 	= christmasDateObj.getTime();
+
+			var dateTimeDiff = parseInt(xmasDateTime)-parseInt(todayDateTime);
+			// 1000 milli secs, 60 min. 60 sec, 24 Hrs per day
+			var inDays 	= dateTimeDiff/(24*60*60*1000);
+			alert('Days left until Christmas: ' + Math.round(inDays));
+
+		}, false);
+
+		// To check for the string 'Java' starting with
+		document.querySelector("#stringMatch").addEventListener("click", function( event ) {
+			var stringResource 	= document.querySelector('#stringCheck');
+			var stringToMatch 	= stringResource.value;
+
+			if(strLenCheck(stringToMatch))
+			{		
+				if(stringToMatch.startsWith('Java') == true)
+				{
+					alert('String Match');
+				}
+				else
+				{
+					alert('Not Matched');
+				}
+			}
+		}, false);
+
+		// To format the string in ascending order
+		document.querySelector("#stringFormat").addEventListener("click", function( event ) {
+			var stringResource 	= document.querySelector('#stringToFormat');
+			var stringToFormat 	= stringResource.value;
+
+			if(strLenCheck(stringToFormat))
+			{
+				var splittedString 	= stringToFormat.split('');
+				splittedString.sort();
+				var orderedString 	= splittedString.join('');
+				alert('Alphabetical order'+'= '+orderedString);
+			}
+		}, false);
+
+		// To format the string in ascending order
+		document.querySelector("#occurenceCheck").addEventListener("click", function( event ) {
+			var stringResource 	= document.querySelector('#stringOccurence');
+			var stringTocheck 	= stringResource.value;
+
+			if(strLenCheck(stringTocheck))
+			{
+				var stringResource2 			= document.querySelector('#stringToCheck');
+				var stringOccurrenceTocheck 	= stringResource2.value;
+
+				if(strLenCheck(stringOccurrenceTocheck))
+				{
+					characterOccurenceCheck(stringTocheck, stringOccurrenceTocheck);
+				}
+			}
+		}, false);
+
+
+		// character check in a string
+		function characterOccurenceCheck(stringToCheck, characterMatch) {
+			var count 	= stringToCheck.split(characterMatch);
+			count 		= count.length - 1;
+			alert('The word "'+characterMatch+ '" occurs: '+count+ ' times');
+		}
+
+		// dynamic array creation
+		document.querySelector("#createArray").addEventListener("click", function( event ) {
+			var stringResource 	= document.querySelector('#startNumber');
+			var arrStartNumber 	= stringResource.value;
+
+			if(Number.isInteger(parseInt(arrStartNumber)))
+			{
+				var stringResource2 = document.querySelector('#arrLength');
+				var arrFillLength 	= stringResource2.value;
+
+				if(Number.isInteger(parseInt(arrFillLength)))
+				{
+					if(arrFillLength > 0)
+					{
+						var createArray = [];
+						for (var i = 0; i < arrFillLength; i++) {
+							createArray.push(parseInt(arrStartNumber) + i);
+						}
+						alert('Created array: '+createArray);
+					}
+					else
+						alert('Enter number greater than 0');
+				}
+				else
+					alert('Enter array size');
+			}
+			else
+				alert('Enter starting Integer');
+		}, false);
+
+		// global function to check the string length
+		function strLenCheck(strToCheck) {
+			if(strToCheck.length > 0)
+				return true;
+			else
+			{
+				alert('Enter Valid String');
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>
