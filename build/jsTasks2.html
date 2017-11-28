@@ -1,0 +1,152 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+   <title>To Do List</title>
+ </head>
+ <body>
+ 
+
+<input type="text" id="listValue">
+  <span onclick="createList()" class="addBtn">Add</span>
+
+<ul id="toDoListDiv">
+  
+</ul> 
+
+<div style="display: none;" id="taskComments">
+  <textarea id="taskCommentValue"></textarea>
+  <button onclick="saveTaskComments()">Save</button>
+</div>
+
+<div style="display: none;" id="taskCommentLists">
+
+</div>
+
+<script>
+// Create a new list item when clicking on the "Add" button
+var i=1;
+var commentsArr = [];
+
+function createList() {
+  var toDoValue = document.getElementById("listValue").value;
+
+  //innerHTML - HTML has to be loaded and re-parsed
+  //document.getElementById('toDoListDiv').innerHTML += toDoValue+'<br>';
+
+  var liElement     = document.createElement("li"); // creating a new li element
+  
+  var span      = document.createElement("span");
+  var toDoText  = document.createTextNode(toDoValue);
+  span.id = "task_"+i;
+  span.onclick = taskDescription;
+  span.appendChild(toDoText);  
+  liElement.appendChild(span);
+
+  //adds an element to the DOM
+  document.getElementById("toDoListDiv").appendChild(liElement);
+
+  //done link
+  var span      = document.createElement("button");
+  var doneText  = document.createTextNode(" done");
+  span.id       = "done_"+i;
+  span.onclick  = doneFunction;
+  span.appendChild(doneText);  
+  liElement.appendChild(span);
+
+  //delete link
+  span          = document.createElement("button");
+  deleteText    = document.createTextNode(" delete");
+  span.id       = "remove_"+i;
+  span.onclick  = deleteFunction;
+  span.appendChild(deleteText);
+  liElement.appendChild(span);
+
+  i++;
+}
+
+//deleting the lists
+function deleteFunction(){
+  var liHide = this.parentElement;
+  liHide.style.display = "none";
+}
+
+//striking the done lists
+function doneFunction(){
+  console.log(this.id);
+  listContent = document.getElementById("task_"+this.id.replace('done_', ''));
+  listContent.innerHTML = '<del>'+listContent.innerHTML+'</del>';
+}
+
+function taskDescription()
+{
+  var taskDesc = document.getElementById('taskComments');
+  taskDesc.style.display = "block";
+
+  // Creating Hidden field
+  var commentElement =  document.getElementById('toDoTask');
+
+  // Current Id 
+  taskId = this.id;
+  globalId = taskId.replace('task_', '');
+
+  if(typeof(commentElement) != 'undefined' && commentElement != null)
+  {      
+    commentElement.value  = globalId;
+  }
+  else
+  {
+    var hiddenField   = document.createElement("input");
+    hiddenField.type  = "hidden";
+    hiddenField.id    = 'toDoTask';
+    hiddenField.value = globalId;
+    taskDesc.appendChild(hiddenField);
+  }
+
+  prepareComments(globalId);
+}
+
+function saveTaskComments()
+{  
+  var commentElement =  document.getElementById('toDoTask');
+  var textareaElement =  document.getElementById('taskCommentValue');
+  commentsArr.push({ id: commentElement.value, value: textareaElement.value });
+  prepareComments(commentElement.value);
+}
+
+function prepareComments(globalId)
+{
+  
+  var taskCommentElmt = document.getElementById('taskCommentLists');
+  taskCommentElmt.style.display = "block";
+
+  var ulElmt = document.getElementById('ulListElement');
+
+  if(typeof(ulElmt) != 'undefined' && ulElmt != null)
+  { 
+    ulElmt.parentNode.removeChild(ulElmt);
+  }
+  
+  var ulElement     = document.createElement("ul");
+  ulElement.id = 'ulListElement';
+  taskCommentElmt.appendChild(ulElement);
+
+  for (var j = 0; j < commentsArr.length; j++) {
+
+    if(commentsArr[j].id == globalId)
+    {
+      var liElement = document.createElement("li"); // creating a new li element  
+      var span      = document.createElement("span");
+      var toDoText  = document.createTextNode(commentsArr[j].value);
+      
+      span.appendChild(toDoText);
+      liElement.appendChild(span);
+
+      //adds an element to the DOM
+      document.getElementById("ulListElement").appendChild(liElement);
+    }
+  }
+}
+
+</script>
+ </body>
+ </html>
