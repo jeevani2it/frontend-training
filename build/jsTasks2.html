@@ -2,40 +2,76 @@
  <html>
  <head>
    <title>To Do List</title>
+
+   <link rel="stylesheet" type="text/css" href="/css/style2.css"> 
+
  </head>
  <body>
- 
 
-<input type="text" id="listValue">
-  <span onclick="createList()" class="addBtn">Add</span>
-
-<ul id="toDoListDiv">
-  
-</ul> 
-
-<div style="display: none;" id="taskComments">
-  <textarea id="taskCommentValue"></textarea>
-  <button onclick="saveTaskComments()">Save</button>
-</div>
-
-<div style="display: none;" id="taskCommentLists">
-
-</div>
 
 <script>
+
+// creating the contnet html
+var container       = document.createElement("div");
+container.className = 'left-container';
+var container2      = document.createElement("div");
+container2.className = 'middle-container';
+var container3      = document.createElement("div");
+container3.className = 'right-container';
+
+// input 
+var createField   = document.createElement("input");
+createField.type  = "text";
+createField.id    = 'listValue';
+
+var span      = document.createElement("span");
+span.onclick    = createList;
+span.textContent  = 'Add';
+
+var h2      = document.createElement("h2");
+h2.textContent = 'To Do List';
+container.appendChild(h2);
+
+innerLeftContainer     = document.createElement("div");
+
+innerLeftContainer.appendChild(createField);
+innerLeftContainer.appendChild(span);
+
+
+container.appendChild(innerLeftContainer);
+
+
+var body = document.querySelector("body");
+body.appendChild(container);
+body.appendChild(container2);
+body.appendChild(container3);
+
 // Create a new list item when clicking on the "Add" button
 var i=1;
 var commentsArr = [];
 
 function createList() {
+
+  // creating the contnet html
+  container     = document.createElement("div");
+
+  // Ul
+  var ulElmt      = document.createElement("ul");
+  ulElmt.id    = 'toDoListDiv';
+
+  container.appendChild(ulElmt);
+  container2.appendChild(container);
+
   var toDoValue = document.getElementById("listValue").value;
+
+  document.getElementById("listValue").value = '';
 
   //innerHTML - HTML has to be loaded and re-parsed
   //document.getElementById('toDoListDiv').innerHTML += toDoValue+'<br>';
 
   var liElement     = document.createElement("li"); // creating a new li element
   
-  var span      = document.createElement("span");
+  span      = document.createElement("span");
   var toDoText  = document.createTextNode(toDoValue);
   span.id = "task_"+i;
   span.onclick = taskDescription;
@@ -46,20 +82,25 @@ function createList() {
   document.getElementById("toDoListDiv").appendChild(liElement);
 
   //done link
-  var span      = document.createElement("button");
+
+  //span2      = document.createElement("span");
+  //span2.className = 'button-merge';
+  //liElement.appendChild(span2);
+
+  var button      = document.createElement("button");
   var doneText  = document.createTextNode(" done");
-  span.id       = "done_"+i;
-  span.onclick  = doneFunction;
-  span.appendChild(doneText);  
-  liElement.appendChild(span);
+  button.id       = "done_"+i;
+  button.onclick  = doneFunction;
+  button.appendChild(doneText);  
+  liElement.appendChild(button);
 
   //delete link
-  span          = document.createElement("button");
+  button2          = document.createElement("button");
   deleteText    = document.createTextNode(" delete");
-  span.id       = "remove_"+i;
-  span.onclick  = deleteFunction;
-  span.appendChild(deleteText);
-  liElement.appendChild(span);
+  button2.id       = "remove_"+i;
+  button2.onclick  = deleteFunction;
+  button2.appendChild(deleteText);
+  liElement.appendChild(button2);
 
   i++;
 }
@@ -68,19 +109,43 @@ function createList() {
 function deleteFunction(){
   var liHide = this.parentElement;
   liHide.style.display = "none";
+
+  document.getElementById('taskComments').style.display = 'none';
+  document.getElementById('ulListElement').style.display = 'none';
 }
 
 //striking the done lists
 function doneFunction(){
-  console.log(this.id);
   listContent = document.getElementById("task_"+this.id.replace('done_', ''));
   listContent.innerHTML = '<del>'+listContent.innerHTML+'</del>';
 }
 
 function taskDescription()
-{
+{  
+  // creating the contnet html
   var taskDesc = document.getElementById('taskComments');
-  taskDesc.style.display = "block";
+
+  if(typeof(taskDesc) != 'undefined' && taskDesc != null)
+  {
+      taskDesc.style.display = "block";
+  }
+  else
+  {
+    var commentDiv     = document.createElement("div");
+    commentDiv.id   = "taskComments";
+
+    var createField   = document.createElement("textarea");
+    createField.id    = 'taskCommentValue';
+
+    var button      = document.createElement("button");
+    var saveText  = document.createTextNode("Save");
+    button.onclick  = saveTaskComments;
+    button.appendChild(saveText);  
+
+    commentDiv.appendChild(createField);
+    commentDiv.appendChild(button);
+    container3.appendChild(commentDiv);
+  }
 
   // Creating Hidden field
   var commentElement =  document.getElementById('toDoTask');
@@ -99,7 +164,7 @@ function taskDescription()
     hiddenField.type  = "hidden";
     hiddenField.id    = 'toDoTask';
     hiddenField.value = globalId;
-    taskDesc.appendChild(hiddenField);
+    commentDiv.appendChild(hiddenField);
   }
 
   prepareComments(globalId);
@@ -110,14 +175,19 @@ function saveTaskComments()
   var commentElement =  document.getElementById('toDoTask');
   var textareaElement =  document.getElementById('taskCommentValue');
   commentsArr.push({ id: commentElement.value, value: textareaElement.value });
+  textareaElement.value = '';
   prepareComments(commentElement.value);
 }
 
 function prepareComments(globalId)
 {
-  
-  var taskCommentElmt = document.getElementById('taskCommentLists');
-  taskCommentElmt.style.display = "block";
+  var taskCommentElmt     = document.createElement("div");
+  taskCommentElmt.id     = 'taskCommentLists';
+
+  container3.appendChild(taskCommentElmt);
+
+  //var taskCommentElmt = document.getElementById('taskCommentLists');
+  //taskCommentElmt.style.display = "block";
 
   var ulElmt = document.getElementById('ulListElement');
 

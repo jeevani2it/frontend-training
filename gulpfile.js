@@ -5,7 +5,7 @@ var browserSync = require('browser-sync');
 var webReload 	= browserSync.reload;
 
 gulp.task('build', function() {
-  return gulp.src('app/scss/style.scss')
+  return gulp.src('app/scss/style2.scss')
     .pipe(sass()) // Converts Sass to CSS with gulp-sass
     .pipe(gulp.dest('build/css/'))
 });
